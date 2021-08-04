@@ -19,56 +19,56 @@ namespace WindowsFormsMantenedor
         public Form1()
         {
             InitializeComponent();
-            dataGridView1.AutoGenerateColumns=false;
-
-            List<Clientes> clientes=ClienteRepo.ListarTodo();
-            List<ClienteDto> clienteDto
-                =clientes // lista de clientes
-                .Select(cli=>new ClienteDto(cli))  // cli(un cliente) => transformar en un ClienteDto
-                .ToList(); // devuelvo la lista de clientesdto
-
-
-            dataGridView1.DataSource= clienteDto;
-
-        
-
+            dataGridView1.AutoGenerateColumns = false;
+            RefrescarGrilla();
 
         }
+
+        public void RefrescarGrilla()
+        {
+            List<Clientes> clientes = ClienteRepo.ListarTodo();
+            List<ClienteDto> clienteDto
+                = clientes // lista de clientes
+                .Select(cli => new ClienteDto(cli))  // cli(un cliente) => transformar en un ClienteDto
+                .ToList(); // devuelvo la lista de clientesdto
+            dataGridView1.DataSource = clienteDto;
+        }
+
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            List<ClienteDto> clienteDto=(List<ClienteDto>) dataGridView1.DataSource;
-            ClienteDto fila = clienteDto[e.RowIndex];
-            Clientes cli=ClienteRepo.Obtener(fila.Id);
-            FormEdicion formulario=new FormEdicion();
-            ClientesVisual.MostrarFormulario(formulario,cli);
-            formulario.clientes=cli;
-            formulario.ShowDialog();
-
-            List<Clientes> clientes = ClienteRepo.ListarTodo();
-            List<ClienteDto> clientesDto
-                = clientes // lista de clientes
-                .Select(c => new ClienteDto(c))  // cli(un cliente) => transformar en un ClienteDto
-                .ToList(); // devuelvo la lista de clientesdto
-
-
-            dataGridView1.DataSource = clientesDto;
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Companias comp1=new Companias();
-            comp1.Id = 2;
-            Companias comp2 = new Companias();
-            comp2.Id = 2;
-
-            if(comp1==comp2)
+            if (e.ColumnIndex == 3)
             {
-                MessageBox.Show("son iguales");
+                // click en boton editar
+
+
+                List<ClienteDto> clienteDto = (List<ClienteDto>)dataGridView1.DataSource;
+                ClienteDto fila = clienteDto[e.RowIndex];
+                Clientes cli = ClienteRepo.Obtener(fila.Id);
+                FormEdicion formulario = new FormEdicion();
+                ClientesVisual.MostrarFormulario(formulario, cli);
+                formulario.clientes = cli;
+                formulario.ShowDialog();
+                RefrescarGrilla();
+            }
+            if(e.ColumnIndex==4)
+            {
+                // click en eliminar.
+                List<ClienteDto> clienteDto = (List<ClienteDto>)dataGridView1.DataSource;
+                ClienteDto fila = clienteDto[e.RowIndex];
+                Clientes cli = ClienteRepo.Obtener(fila.Id);
+
+                var confirmacion=MessageBox.Show("Quier eliminar este elemento?","Titulo",MessageBoxButtons.YesNo);
+
+                if(confirmacion==DialogResult.Yes)
+                {
+                    ClienteRepo.Eliminar(cli.Id);
+                    RefrescarGrilla();
+                }
             }
 
-
         }
+
+
     }
 }

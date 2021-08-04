@@ -46,5 +46,14 @@ namespace WindowsFormsMantenedor.repo
 
             }
         }
+        public static void Eliminar(int id)
+        {
+            using (var contexto = new Model1Contexto())
+            {
+                var clienteDesdeBase = contexto.Clientes.First(c => c.Id ==id);
+                contexto.Clientes.Remove(clienteDesdeBase);
+                contexto.SaveChanges();
+            }
+        }
     }
 }
