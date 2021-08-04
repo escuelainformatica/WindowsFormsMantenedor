@@ -19,12 +19,34 @@ namespace WindowsFormsMantenedor.visual
             formulario.labelId.Text = cli.Id.ToString();
             formulario.textBoxNombre.Text=cli.Nombre;
         }
+
+
+        public static void MostrarFormularioInsertar(Form1 formulario, Clientes cli)
+        {
+            formulario.comboBoxCompania.DataSource = CompaniaRepo.ListarTodo();
+            // para que funcione la siguiente linea, hay que agregar
+            //  "static bool operator !=" en la clase Companias
+            formulario.comboBoxCompania.SelectedItem = cli.Companias;
+            formulario.labelId.Text = cli.Id.ToString();
+            formulario.textBoxNombre.Text = cli.Nombre;
+        }
+
         public static Clientes ObtenerDelFormulario(FormEdicion formulario)
         {
             Clientes cli=new Clientes();
             cli.Id=Convert.ToInt32(formulario.labelId.Text);
             cli.Nombre=formulario.textBoxNombre.Text;
             cli.IdCompania= ((Companias)formulario.comboBoxCompania.SelectedItem).Id;
+            return cli;
+        }
+
+
+        public static Clientes ObtenerDelFormularioInsertar(Form1 formulario)
+        {
+            Clientes cli = new Clientes();
+            cli.Id = Convert.ToInt32(formulario.labelId.Text);
+            cli.Nombre = formulario.textBoxNombre.Text;
+            cli.IdCompania = ((Companias)formulario.comboBoxCompania.SelectedItem).Id;
             return cli;
         }
     }

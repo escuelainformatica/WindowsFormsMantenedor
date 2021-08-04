@@ -55,5 +55,13 @@ namespace WindowsFormsMantenedor.repo
                 contexto.SaveChanges();
             }
         }
+        public static void Insertar(Clientes cli)
+        {
+            using (var contexto = new Model1Contexto())
+            {
+                contexto.Clientes.Add(cli);
+                contexto.SaveChanges();
+            }
+        }
     }
 }

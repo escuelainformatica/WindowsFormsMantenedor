@@ -69,6 +69,30 @@ namespace WindowsFormsMantenedor
 
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            panelGrilla.Visible=false;
+            panelInsertar.Visible=true;
+
+            Clientes clienteVacio=new Clientes();
+            ClientesVisual.MostrarFormularioInsertar(this,clienteVacio);
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            Clientes cli=ClientesVisual.ObtenerDelFormularioInsertar(this);
+            ClienteRepo.Insertar(cli);
+            panelGrilla.Visible = true;
+            panelInsertar.Visible = false;
+            RefrescarGrilla();
+
+
+        }
     }
 }
