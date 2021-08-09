@@ -19,11 +19,25 @@ namespace WindowsFormsMantenedor
 {
     public partial class Form1 : Form
     {
-        public Form1()
+        public string Usuario { set; get;}
+
+
+        public Form1(string usuario)
         {
+            this.Usuario=usuario;
+
             InitializeComponent();
             dataGridView1.AutoGenerateColumns = false;
             RefrescarGrilla();
+            toolStripStatusLabel2.Text=Usuario;
+
+            if(Usuario!="admin")
+            {
+                button3.Visible=false;
+                button2.Enabled=false;
+            }
+
+
 
         }
 
@@ -145,6 +159,11 @@ namespace WindowsFormsMantenedor
             wsSheet1.Protection.AllowSelectLockedCells = false;
             ExcelPkg.SaveAs(new FileInfo(saveFileDialog1.FileName));
 
+
+        }
+
+        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
+        {
 
         }
     }
