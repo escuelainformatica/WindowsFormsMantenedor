@@ -138,8 +138,8 @@ namespace WindowsFormsMantenedor
             }
 
             ExcelBarChart grafico = (ExcelBarChart)wsSheet1.Drawings["Grafico1"];
-            grafico.Series[0].XSeries = wsSheet1.Cells[6, 2, 6+clientes.Count(), 4].FullAddress;
-            grafico.Series[0].Series = wsSheet1.Cells[6, 2, 6+clientes.Count(), 4].FullAddress;
+            //grafico.Series[0].XSeries = wsSheet1.Cells[6, 2, 6+clientes.Count(), 4].FullAddress;
+            grafico.Series[0].Series = wsSheet1.Cells[6, 2, 6+clientes.Count(), 3].FullAddress;
 
             wsSheet1.Protection.IsProtected = false;
             wsSheet1.Protection.AllowSelectLockedCells = false;
