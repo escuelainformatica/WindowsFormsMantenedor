@@ -39,6 +39,7 @@ namespace WindowsFormsMantenedor
             this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelGrilla = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
             this.panelInsertar = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -46,7 +47,8 @@ namespace WindowsFormsMantenedor
             this.button1 = new System.Windows.Forms.Button();
             this.comboBoxCompania = new System.Windows.Forms.ComboBox();
             this.textBoxNombre = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panelGrilla.SuspendLayout();
@@ -124,7 +126,7 @@ namespace WindowsFormsMantenedor
             this.archivoToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(800, 28);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -133,24 +135,35 @@ namespace WindowsFormsMantenedor
             this.archivoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.salirToolStripMenuItem});
             this.archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
-            this.archivoToolStripMenuItem.Size = new System.Drawing.Size(73, 26);
+            this.archivoToolStripMenuItem.Size = new System.Drawing.Size(73, 24);
             this.archivoToolStripMenuItem.Text = "Archivo";
             // 
             // salirToolStripMenuItem
             // 
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(121, 26);
             this.salirToolStripMenuItem.Text = "Salir";
             // 
             // panelGrilla
             // 
+            this.panelGrilla.Controls.Add(this.button3);
             this.panelGrilla.Controls.Add(this.button2);
             this.panelGrilla.Controls.Add(this.dataGridView1);
             this.panelGrilla.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelGrilla.Location = new System.Drawing.Point(0, 30);
+            this.panelGrilla.Location = new System.Drawing.Point(0, 28);
             this.panelGrilla.Name = "panelGrilla";
-            this.panelGrilla.Size = new System.Drawing.Size(800, 420);
+            this.panelGrilla.Size = new System.Drawing.Size(800, 422);
             this.panelGrilla.TabIndex = 2;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(13, 250);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(110, 38);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "Insertar";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // panelInsertar
             // 
@@ -161,9 +174,9 @@ namespace WindowsFormsMantenedor
             this.panelInsertar.Controls.Add(this.comboBoxCompania);
             this.panelInsertar.Controls.Add(this.textBoxNombre);
             this.panelInsertar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelInsertar.Location = new System.Drawing.Point(0, 30);
+            this.panelInsertar.Location = new System.Drawing.Point(0, 28);
             this.panelInsertar.Name = "panelInsertar";
-            this.panelInsertar.Size = new System.Drawing.Size(800, 420);
+            this.panelInsertar.Size = new System.Drawing.Size(800, 422);
             this.panelInsertar.TabIndex = 1;
             // 
             // label3
@@ -221,15 +234,22 @@ namespace WindowsFormsMantenedor
             this.textBoxNombre.Size = new System.Drawing.Size(552, 22);
             this.textBoxNombre.TabIndex = 6;
             // 
-            // button2
+            // button3
             // 
-            this.button2.Location = new System.Drawing.Point(13, 250);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(110, 38);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Insertar";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button3.Location = new System.Drawing.Point(215, 250);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(101, 38);
+            this.button3.TabIndex = 2;
+            this.button3.Text = "button3";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.AddExtension = false;
+            this.saveFileDialog1.DefaultExt = "xlsx";
+            this.saveFileDialog1.Filter = "excel|*.xlsx";
+            this.saveFileDialog1.Title = "Generar Excel";
             // 
             // Form1
             // 
@@ -273,6 +293,8 @@ namespace WindowsFormsMantenedor
         private System.Windows.Forms.Button button1;
         public System.Windows.Forms.ComboBox comboBoxCompania;
         public System.Windows.Forms.TextBox textBoxNombre;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }
 

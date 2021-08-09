@@ -1,8 +1,11 @@
-﻿using System;
+﻿using OfficeOpenXml;
+using OfficeOpenXml.Drawing.Chart;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -91,6 +94,56 @@ namespace WindowsFormsMantenedor
             panelGrilla.Visible = true;
             panelInsertar.Visible = false;
             RefrescarGrilla();
+
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var resultadoArchivo=saveFileDialog1.ShowDialog();
+
+            if(resultadoArchivo==DialogResult.Cancel)
+            {
+                return;
+            }
+
+
+            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+
+            FileInfo newFile = new FileInfo(Application.UserAppDataPath+"\\template.xlsx");
+
+            ExcelPackage ExcelPkg = new ExcelPackage(newFile);
+            //ExcelPackage ExcelPkg = new ExcelPackage();
+            //ExcelWorksheet wsSheet1 = ExcelPkg.Workbook.Worksheets.Add("Sheet1");
+            ExcelWorksheet wsSheet1 = ExcelPkg.Workbook.Worksheets["Hoja1"];
+
+   
+
+            //wsSheet1.Column(2).Width=32;
+
+            //wsSheet1.Cells[1, 1].Value="Id";
+            //wsSheet1.Cells[1, 2].Value = "Nombre";
+            //wsSheet1.Cells[1, 3].Value = "Compañia";
+
+            List<Clientes> clientes = ClienteRepo.ListarTodo();
+            int fila=6;
+            var tbl = wsSheet1.Tables["TablaClientes"];
+            foreach (var cli in clientes)
+            {
+                wsSheet1.Cells[fila, 2].Value=cli.Id;
+                wsSheet1.Cells[fila, 3].Value = cli.Nombre;
+                wsSheet1.Cells[fila, 4].Value = cli.Companias.Compania;
+                fila=fila+1;
+                tbl.AddRow(1);
+            }
+
+            ExcelBarChart grafico = (ExcelBarChart)wsSheet1.Drawings["Grafico1"];
+            grafico.Series[0].XSeries = wsSheet1.Cells[6, 2, 6+clientes.Count(), 4].FullAddress;
+            grafico.Series[0].Series = wsSheet1.Cells[6, 2, 6+clientes.Count(), 4].FullAddress;
+
+            wsSheet1.Protection.IsProtected = false;
+            wsSheet1.Protection.AllowSelectLockedCells = false;
+            ExcelPkg.SaveAs(new FileInfo(saveFileDialog1.FileName));
 
 
         }
