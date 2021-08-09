@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsFormsMantenedor.repo;
 
 namespace WindowsFormsMantenedor
 {
@@ -15,11 +16,34 @@ namespace WindowsFormsMantenedor
         public Login()
         {
             InitializeComponent();
+
+            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            var usuario = UsuarioRepo.ValidarUsuario(userName, "AUTOLOGIN");
+            if(usuario==null)
+            {
+                return;
+            }
+            // auto login
+            var form1 = new Form1(usuario);
+
+            this.Hide();
+            form1.ShowDialog();
+            this.Close();
+
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string usuario=textBox1.Text;
+            
+
+            var usuario=UsuarioRepo.ValidarUsuario(textBox1.Text,textBox2.Text);
+            if(usuario==null)
+            {
+                MessageBox.Show("Usuario o clave incorrecta");
+                return;
+            }
+            
 
             var form1=new Form1(usuario);
 

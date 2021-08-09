@@ -19,23 +19,32 @@ namespace WindowsFormsMantenedor
 {
     public partial class Form1 : Form
     {
-        public string Usuario { set; get;}
+        public Usuarios Usuario { set; get;}
 
 
-        public Form1(string usuario)
+        public Form1(Usuarios usuario)
         {
             this.Usuario=usuario;
 
             InitializeComponent();
             dataGridView1.AutoGenerateColumns = false;
             RefrescarGrilla();
-            toolStripStatusLabel2.Text=Usuario;
+            toolStripStatusLabel2.Text=usuario.NombreCompleto;
+            toolStripStatusLabel3.Text=usuario.Grupos.Nombre;
+            
 
-            if(Usuario!="admin")
+            // validacion.
+            if (usuario.Grupos.Insertar!=1)
             {
-                button3.Visible=false;
-                button2.Enabled=false;
+                button2.Enabled = false;
+                dataGridView1.Columns[3].Visible=false;
+                dataGridView1.Columns[4].Visible = false;
             }
+            if (usuario.Grupos.ExportarExcel != 1)
+            {
+                button3.Visible = false;
+            }
+
 
 
 
@@ -54,6 +63,13 @@ namespace WindowsFormsMantenedor
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            if(Usuario.Grupos.Insertar!=1)
+            {
+                MessageBox.Show("No tiene permisos para hacer la operacion");
+                return;
+            }
+
+
             if (e.ColumnIndex == 3)
             {
                 // click en boton editar
